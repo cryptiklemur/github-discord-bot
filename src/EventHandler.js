@@ -57,7 +57,7 @@ class EventHandler {
                 {repository: event.repository.name, secret: event.repository.secret},
                 (err, subscription) => {
                     for (let name in issues) {
-                        if (!issues.hasOwnProperty(name)) {
+                        if (!issues.hasOwnProperty(name) || name === 'AbstractEvent') {
                             continue;
                         }
 
