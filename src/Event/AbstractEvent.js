@@ -4,8 +4,8 @@ class AbstractEvent {
         this.subscription = subscription;
         this.event        = event;
 
-        this.server  = this.client.servers.get('id', subscription.server);
-        this.channel = server.channels.get('id', subscription.channel);
+        this.server  = this.client.servers.get('id', this.subscription.server);
+        this.channel = this.server.channels.get('id', this.subscription.channel);
         this.request = event.request.body;
 
         this.handle();
