@@ -54,7 +54,7 @@ class EventHandler {
             this.logger.info("New event: ", event);
 
             Subscription.findOne(
-                {repository: event.repository.name, secret: event.repository.secret},
+                {repository: event.repository.full_name},
                 (err, subscription) => {
                     for (let name in issues) {
                         if (!issues.hasOwnProperty(name) || name === 'AbstractEvent') {
