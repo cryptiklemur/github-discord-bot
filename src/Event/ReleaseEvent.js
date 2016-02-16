@@ -2,7 +2,7 @@ const AbstractEvent = require('./AbstractEvent');
 
 class ReleaseEvent extends AbstractEvent {
     static supports(event) {
-        return event === 'push';
+        return event === 'release';
     }
 
     handle() {
