@@ -6,7 +6,8 @@ class PullRequestEvent extends AbstractEvent {
     }
 
     handle() {
-        let pr = this.request.pull_request,
+        let event   = this.event,
+            pr      = this.request.pull_request,
             message = '';
 
         if (this.request.action === 'opened' || this.request.action === 'reopened') {

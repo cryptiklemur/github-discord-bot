@@ -6,7 +6,8 @@ class IssuesEvent extends AbstractEvent {
     }
 
     handle() {
-        let issue = this.request.issue,
+        let event   = this.event,
+            issue   = this.request.issue,
             message = '';
 
         if (this.request.action === 'opened' || this.request.action === 'reopened') {

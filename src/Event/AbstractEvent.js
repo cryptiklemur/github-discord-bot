@@ -6,7 +6,7 @@ class AbstractEvent {
 
         this.server  = this.client.servers.get('id', this.subscription.server);
         this.channel = this.server.channels.get('id', this.subscription.channel);
-        this.request = event.request.body;
+        this.request = this.event.request.body;
 
         this.handle();
     }
