@@ -2,7 +2,7 @@ const Subscription = require('./Model/Subscription');
 const http         = require('http');
 const handler      = require('github-webhooker');
 const _            = require('lodash');
-const issues       = require('require-all')(__dirname + '/Event');
+const events       = require('require-all')(__dirname + '/Event');
 
 class EventHandler {
     constructor(client, logger) {
@@ -51,20 +51,22 @@ class EventHandler {
         this.logger.info("Listening for all events");
 
         handler.on('*', event => {
-            Subscription.findOne(
+            Subscription.find(
                 {repository: event.request.body.repository.full_name},
-                (err, subscription) => {
-                    for (let name in issues) {
-                        if (!issues.hasOwnProperty(name) || name === 'AbstractEvent') {
-                            continue;
-                        }
+                (err, subscriptions) => {
+                    subscriptions.forEach(subscription => {
+                        for (let name in events) {
+                            if (!events.hasOwnProperty(name) || name === 'AbstractEvent') {
+                                continue;
+                            }
 
 
-                        let cls = issues[name];
-                        if (cls.supports(event.name)) {
-                            return new cls(this.client, subscription, event);
+                            let cls = events[name];
+                            if (cls.supports(event.name)) {
+                                new cls(this.client, subscription, event);
+                            }
                         }
-                    }
+                    });
                 }
             )
         });
