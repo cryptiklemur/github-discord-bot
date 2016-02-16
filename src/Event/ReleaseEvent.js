@@ -6,9 +6,9 @@ class ReleaseEvent extends AbstractEvent {
     }
 
     handle() {
-        let message = `**${this.request.repository.name}** - *New Release(s)*`;
+        let message = `**${this.request.repository.name}** - *New Release*\n`;
 
-        message += `${this.request.release.name} - ${this.request.release.body}\n`;
+        message += `***${this.request.release.name}*** - ${this.request.release.body}\n`;
         message += `<${this.request.release.html_url}>`;
 
         this.client.sendMessage(this.channel, message);
