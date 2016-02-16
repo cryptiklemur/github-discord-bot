@@ -6,16 +6,15 @@ class IssuesEvent extends AbstractEvent {
     }
 
     handle() {
-        let event   = this.event,
-            issue   = this.request.issue,
+        let issue   = this.request.issue,
             message = '';
 
         if (this.request.action === 'opened' || this.request.action === 'reopened') {
-            message += `**New Issue** - *${event.repository.name}* - #${issue.number}\n\`${issue.title}\`\n<${issue.url}>`;
+            message += `**${this.request.repository.name}** - *New Issue* - #${issue.number}\n\`${issue.title}\`\n<${issue.url}>`;
         }
 
         if (this.request.action === 'closed') {
-            message += `**Issue Closed** - *${event.repository.name}* - #${issue.number}\n\`${issue.title}\`\n<${issue.url}>`;
+            message += `**${this.request.repository.name}** - *Issue Closed* - #${issue.number}\n\`${issue.title}\`\n<${issue.url}>`;
         }
 
         this.client.sendMessage(this.channel, message);

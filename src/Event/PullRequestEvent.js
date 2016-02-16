@@ -11,14 +11,14 @@ class PullRequestEvent extends AbstractEvent {
             message = '';
 
         if (this.request.action === 'opened' || this.request.action === 'reopened') {
-            message += `**New Pull Request** - *${event.repository.name}* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
+            message += `**${this.request.repository.name}** - *New Pull Request* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
         }
 
         if (this.request.action === 'closed') {
             if (pr.merged) {
-                message += `**Pull Request Merged** - *${event.repository.name}* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
+                message += `**${this.request.repository.name}** - *Pull Request Merged* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
             } else {
-                message += `**Pull Request Closed** - *${event.repository.name}* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
+                message += `**${this.request.repository.name}** - *Pull Request Closed* - #${this.request.number}\n\`${pr.title}\`\n<${pr.url}>`;
             }
         }
         this.client.sendMessage(this.channel, message);
