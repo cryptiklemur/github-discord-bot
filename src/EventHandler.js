@@ -51,8 +51,6 @@ class EventHandler {
         this.logger.info("Listening for all events");
 
         handler.on('*', event => {
-            this.logger.info("New event: ", event);
-
             Subscription.findOne(
                 {repository: event.request.body.repository.full_name},
                 (err, subscription) => {
